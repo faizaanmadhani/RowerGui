@@ -6,7 +6,7 @@ fig = plt.figure()
 ax2 = fig.add_subplot(1,1,1)
 ax2.set_title('Efficiency vs Time')
 ax2.set_xlabel('Time')
-ax2.set_ylabel('Propulsive Force')
+ax2.set_ylabel('Efficiency')
 
 def animate(i):
     pullData = open("EfGraphData.txt","r").read()
