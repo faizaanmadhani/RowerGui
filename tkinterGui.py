@@ -1,3 +1,5 @@
+#Baseline code necessary for Adding Pages/Windows to a TKinter Application Using Python 3/3.4.1/3.6.0.
+#import Modules and Dependencies
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
@@ -5,16 +7,20 @@ from matplotlib.figure import Figure
 import matplotlib.animation as animation
 from matplotlib import style
 
-import Tkinter as tk
-from Tkinter import ttk
+#Import tkinter
+#Case t in tkinter, and change "from tkinter import ttk" to "import ttk" for Python 2/2.6.0/2.7.1 Optimization
+import tkinter as tk
+from tkinter import ttk
 LARGE_FONT=("Verdana", 12)
 style.use("ggplot")
 
+#Create Graph plot
 f=Figure(figsize=(5,5), dpi=100)
 a = f.add_subplot(111)
 
+#Initialize real time animation function for Propulsive Force Graph
 def animate(i):
-    pullData = open("sampleData.txt","r").read()
+    pullData = open("FpGraphData","r").read()
     dataList = pullData.split('\n')
     xList = []
     yList = []
@@ -26,14 +32,15 @@ def animate(i):
     a.clear()
     a.plot(xList,yList)
 
-
-
-class SeaofBTCapp (tk.Tk):
+#Initialize Main Activity for GUI
+#Build Container for GUI
+class mainActivity (tk.Tk):
     def _init_(self,*args,**kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
 
-        tk.Tk.iconbitmap(self, default="icon.ico")
-        tk.Tk.wm_title(self, "Sea of BTC client")
+#Initialize Icon. Insert ico file in here soon
+        #tk.Tk.iconbitmap(self, default="icon.ico")
+        tk.Tk.wm_title(self, "Main GUI")
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
 
@@ -55,6 +62,7 @@ class SeaofBTCapp (tk.Tk):
 def qf():
     print("Hamne kar dikhaya")
 
+#Begin Pages Initialization
 class StartPage(tk.Frame):
     def _init_(self, parent, controller):
         tk.Frame.__init__(self,parent)
@@ -95,13 +103,15 @@ class PageThree(tk.Frame):
         button1 = ttk.Button(self, text="Back to Home", command=lambda :controller.show_frame(StartPage))
         button1.pack()
 
-
+        #Canvas where Graph Rests
         canvas = FigureCanvasTkAgg(f,self)
         canvas.show()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
         toolbar = NavigationToolbar2TkAgg(canvas, self)
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-app= SeaofBTCapp()
+
+#Run Event Loop
+app= mainActivity()
 ani = animation.FuncAnimation(f,animate, interval=1000)
 app.mainloop()
