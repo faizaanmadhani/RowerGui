@@ -4,12 +4,13 @@ writeObj = open("FpGraphData.txt", "a")
 
 inObj = "1.111, 125.200, 3.300, 0.000, 53.000"
 SplObj = inObj.split(",")
-time = inObj[0]
-fp = inObj[1]
+time = SplObj[0]
+fp = SplObj[1]
 
 #convert to coordinates
-value = str(time + ", " + fp)
+value = str(time + ", " + fp + ("\n"))
 
 #write to file
 writeObj.write(value)
+writeObj.write("\n")
 writeObj.close()
