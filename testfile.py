@@ -44,19 +44,19 @@ e = Figure(figsize=(5,5), dpi=100)
 d = f.add_subplot(111)
 
 #Initialize real time animation function for Efficiency Graph
-def animate(i):
-    pullData = open("EfGraphData.txt","r").read()
-    dataList = pullData.split('\n')
-    xList = []
-    yList = []
-    for eachLine in dataList:
-        if len(eachLine) > 1:
-            x, y = eachLine.split(',')
-            xList.append(int(x))
-            yList.append(int(y))
-
-    d.clear()
-    d.plot(xList, yList)
+# def animate(i):
+#     pullData = open("EfGraphData.txt","r").read()
+#     dataList = pullData.split('\n')
+#     xList = []
+#     yList = []
+#     for eachLine in dataList:
+#         if len(eachLine) > 1:
+#             x, y = eachLine.split(',')
+#             xList.append(int(x))
+#             yList.append(int(y))
+#
+#     d.clear()
+#     d.plot(xList, yList)
 
 #Begin Pages Initialization
 class MainActivity(tk.Tk):
@@ -134,9 +134,9 @@ class FpGraph(tk.Frame):
                             command=lambda: controller.show_frame(StartPage))
         button1.pack()
 
-        button2 = ttk.Button(self, text="Efficiency Graph",
-                            command=lambda: controller.show_frame(EfGraph))
-        button2.pack()
+        # button2 = ttk.Button(self, text="Efficiency Graph",
+        #                     command=lambda: controller.show_frame(EfGraph))
+        # button2.pack()
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
@@ -147,30 +147,29 @@ class FpGraph(tk.Frame):
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 #Efficiency Time graph Page Initialization (CURRENTLY THROWS AN ERROR -- TO BE DEBUGGED)
-class EfGraph(tk.Frame):
-
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Efficiency vs Time Graph!", font=LARGE_FONT)
-        label.pack(pady=10,padx=10)
-
-        button1 = ttk.Button(self, text="Back to Home",
-                            command=lambda: controller.show_frame(StartPage))
-        button1.pack()
-
-        #Canvas Element where graph rests
-        canvas = FigureCanvasTkAgg(e, self)
-        canvas.show()
-        canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
-
-        toolbar = NavigationToolbar2TkAgg(canvas, self)
-        toolbar.update()
-        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+# class EfGraph(tk.Frame):
+#
+#     def __init__(self, parent, controller):
+#         tk.Frame.__init__(self, parent)
+#         label = tk.Label(self, text="Efficiency vs Time Graph!", font=LARGE_FONT)
+#         label.pack(pady=10,padx=10)
+#
+#         button1 = ttk.Button(self, text="Back to Home",
+#                             command=lambda: controller.show_frame(StartPage))
+#         button1.pack()
+#
+#         #Canvas Element where graph rests
+#         canvas = FigureCanvasTkAgg(e, self)
+#         canvas.show()
+#         canvas.get_tk_widget().pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
+#
+#         toolbar = NavigationToolbar2TkAgg(canvas, self)
+#         toolbar.update()
+#         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 #Run Event Loop
 app = MainActivity()
 #Initialization of animation function -- scans file every 1 second
 ani = animation.FuncAnimation(f, animate, interval=1000)
-ani = animation.FuncAnimation(e, animate, interval=1000)
 #Execute main loop and initiate event driven async prorgram.
 app.mainloop()
